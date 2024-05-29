@@ -2,7 +2,7 @@
 import { Link } from 'react-router-dom'
 import React, { useContext, useEffect } from 'react'
 import { LoggedNav, UnloggedNav } from './'
-import { UserContext } from '../../context/userContext'
+import { UserContext } from '../../../context/userContext'
 
 export const Navbar = () => {
   

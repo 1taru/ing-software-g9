@@ -1,6 +1,6 @@
 import './App.css'
 import {Routes, Route} from 'react-router-dom'
-import { Navbar } from './components'
+import { Navbar } from './components/Navbar'
 import { Dashboard, Inicio, Login, Register, Logout } from './pages'
 import axios from 'axios'
 import {Toaster} from 'react-hot-toast'

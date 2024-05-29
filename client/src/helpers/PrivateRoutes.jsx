@@ -5,11 +5,14 @@ import { Dashboard, Logout } from '../pages';
 import { UserContext } from '../../context/userContext';
 
 function PrivateRoutes(){
+
+  const {user} = useContext(UserContext); 
+
   return (
     <Routes>
       <Route path='/dashboard' element={<Dashboard />} />
       <Route path='/logout' element={<Logout />} />
-      <Route path='/register' element={<Dashboard />} />
+      {user.accType!='admin' && <Route path='/register' element={<Dashboard />} /> }
       <Route path='/' element={<Dashboard />} />
     </Routes>
   );
