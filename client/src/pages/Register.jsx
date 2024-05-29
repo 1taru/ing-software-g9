@@ -77,15 +77,15 @@ export const Register = () => {
         </div>
       </div>
       <div className="mb-5">
-        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tipo de Cuenta</label>
+        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cargo</label>
         <select
           value={data.accType}
           onChange={(e) => setData({ ...data, accType: e.target.value })}
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         >
-          <option value="acctype1">AccType 1</option>
-          <option value="acctype2">AccType 2</option>
-          <option value="acctype3">AccType 3</option>
+          <option value="acctype1">Operario de estación de trabajo</option>
+          <option value="acctype2">Gestión de Inventario</option>
+          <option value="acctype3">Encargado de logística</option>
         </select>
       </div>
       <button type='submit' className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Registrar</button>
