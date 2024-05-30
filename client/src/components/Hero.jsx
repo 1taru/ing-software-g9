@@ -1,10 +1,5 @@
 import React, { useContext } from "react";
 
-import {
-  RiCheckboxBlankCircleFill,
-  RiPlayFill,
-  RiStarFill,
-} from "react-icons/ri";
 import { UserContext } from "../../context/userContext";
 import { InventarioButtons } from "./Buttons/InventarioButtons";
 import { AdminButtons } from "./Buttons/adminButtons";
@@ -24,10 +19,6 @@ const Hero = () => {
             Bienvenido {" "}
             <span className="text-prim py-2 px-6 border-8 border-prim relative inline-block">
               {user.name}
-              <RiCheckboxBlankCircleFill className="text-white text-base absolute -left-5 -top-5 p-2 bg-prim rounded-full box-content" />
-              <RiCheckboxBlankCircleFill className="text-white text-base absolute -right-5 -top-5 p-2 bg-prim rounded-full box-content" />
-              <RiCheckboxBlankCircleFill className="text-white text-base absolute -right-5 -bottom-5 p-2 bg-prim rounded-full box-content" />
-              <RiCheckboxBlankCircleFill className="text-white text-base absolute -left-5 -bottom-5 p-2 bg-prim rounded-full box-content" />
             </span>
           </h1>
           <p className="text-gray-500 text-2xl leading-[2.5rem] dark:text-gray-400">

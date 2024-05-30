@@ -9,23 +9,20 @@ export const Router = () => {
   const { user } = useContext(UserContext);
   
   return (
+
     <Routes>
-        <Route path='/' element={<Dashboard/>}/>
+
+        {!user ? (<Route path='/' element={<Login/>}/>) : (<Route path='/' element={<Dashboard/>}/>)}
         
-        <Route path='/register' element={ user ? (
-            user.accType === 'admin' ? ( <Register />) : (<Inicio />)
-          ) : (<Login />)
-        }/>
+        <Route path='/register' element={ user ? ( user.accType === 'admin' ? ( <Register />) : (<Inicio />) ) : (<Login />)}/>
 
-        {!user ? (<Route path='/login' element={<Login/>}/>) : (
-          <Route path= '/login' element ={<Dashboard/>}/>
-        )}
+        {!user ? (<Route path='/login' element={<Login/>}/>) : (<Route path= '/login' element ={<Dashboard/>}/>)}
 
-        <Route path = '/logout' element = { <Logout/>}/>
+        {user && <Route path = '/logout' element = { <Logout/>}/>}
 
-        {user ? (<Route path='/dashboard' element={<Dashboard />} />) : (
-        <Route path='/dashboard' element={<Navigate to='/login' replace />}/>
-        )}
+        {user ? (<Route path='/dashboard' element={<Dashboard />} />) : (<Route path='/dashboard' element={<Navigate to='/login' replace />}/>)}
+
     </Routes>
+    
   )
 }
