@@ -10,7 +10,7 @@ export const Router = () => {
   
   return (
     <Routes>
-        <Route path='/' element={<Inicio/>}/>
+        <Route path='/' element={<Dashboard/>}/>
         
         <Route path='/register' element={ user ? (
             user.accType === 'admin' ? ( <Register />) : (<Inicio />)
