@@ -1,4 +1,6 @@
-# Proyecto MERN
+# Proyecto Semestral ING software Grupo 9
+
+Video correspondiente al proyecto: https://www.youtube.com/watch?v=LJe5GBUqiF0
 
 Este proyecto está hecho con stack MERN (MongoDB, Express, React, Node.js) dividido en dos carpetas: `client` y `server`. A continuación, se detallan los pasos para instalar las dependencias y ejecutar ambos entornos.
 
