@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const cors = require('cors');
 const { test, registerUser, loginUser, getProfile, logoutUser } = require('../controllers/authController');
+const { getAllUsers, deleteUser } = require('../controllers/userController');
 
 // middleware
 router.use(
@@ -18,5 +19,9 @@ router.post('/login',loginUser);
 router.get('/profile', getProfile);
 router.post('/logout', logoutUser);
 
+//Manejo de usuarios por el admin
+
+router.get('/users', getAllUsers);
+router.delete('/users/:id',deleteUser);
 
 module.exports = router

@@ -3,4 +3,5 @@
     export {Register} from './Register.jsx';
     export {Dashboard} from './Dashboard.jsx';
     export {Logout} from './Logout.jsx';
-    export { OrdersMenu } from './orders/OrdersMenu.jsx'; // Exportación correcta
+    export { OrdersMenu } from './orders/OrdersMenu.jsx';
+    export {AllUsers} from './adminPages/AllUsers.jsx'
