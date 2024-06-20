@@ -1,8 +1,8 @@
 // PublicRoutes.js
 import React, { useContext } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { Inicio, Login, Register } from '../../pages';
-import { UserContext } from '../../../context/userContext';
+import { Inicio, Login, Register } from '../../../pages';
+import { UserContext } from '../../../../context/userContext';
 
 function PublicRoutes () {
   const {user} = useContext(UserContext); 
