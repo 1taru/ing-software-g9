@@ -22,7 +22,7 @@ const createProduct = async (req, res) => {
     };
     if(!product.details){
         return res.json({
-            error: 'Se requiere un nombre para el producto.'
+            error: 'Se requieren detalles para el producto.'
         })
     };
   try {

@@ -1,8 +1,15 @@
 // server/models/order.js
 const mongoose = require('mongoose');
+const { Schema } = mongoose;
 
-const orderSchema = new mongoose.Schema({
-  date: {
+const orderSchema = new Schema({
+  products: [
+    {
+      product: { type: Schema.Types.ObjectId, ref: 'products' },
+      quantity: { type: Number, required: true }
+    }
+  ],
+  creationDate: {
     type: String,
     required: true,
   },
@@ -14,11 +21,11 @@ const orderSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  relatedTo: {
+  creator: {
     type: String,
     required: true,
   },
 });
 
 const Order = mongoose.model('Order', orderSchema);
-module.exports = OrderModel;
+module.exports = Order;

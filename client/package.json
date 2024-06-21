@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@reach/menu-button": "^0.18.0",
+    "@reach/tooltip": "^0.18.0",
     "axios": "^1.6.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
