@@ -16,6 +16,7 @@ app.use(express.urlencoded({extended: false}));
 app.use('/', require('./routes/authRoutes'));
 app.use('/products', require('./routes/productRoutes'));
 app.use('/orders', require('./routes/orderRoutes'));
+app.use('/inventory', require('./routes/inventoryRoutes'));
 
 // app.use('api/orders', require())
 const port = 8000;
