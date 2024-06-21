@@ -174,7 +174,7 @@ export const InventoryMenu = () => {
                     type="text"
                     value={bodegaInputValue}
                     onChange={(e) => setBodegaInputValue(e.target.value)}
-                    placeholder="Bodega"
+                    placeholder="Ubicación"
                   />
                   <button className="bg-lime-900 hover:bg-lime-700 text-white dark:text-gray-200 font-bold py-2 px-4 rounded" onClick={handleSaveProperties}>Actualizar propiedades</button>
                 </div>
