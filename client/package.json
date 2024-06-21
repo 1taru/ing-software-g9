@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@headlessui/react": "^2.0.4",
     "@reach/menu-button": "^0.18.0",
     "@reach/tooltip": "^0.18.0",
     "axios": "^1.6.8",

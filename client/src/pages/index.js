@@ -7,3 +7,5 @@
     export { CreateOrder } from './orders/CreateOrder.jsx'
     export {AllUsers} from './adminPages/AllUsers.jsx';
     export {CreateProduct} from './products/CreateProduct.jsx';
+    export {CreateMaterial} from './inventory/CreateMaterial.jsx';
+    export {InventoryMenu} from './inventory/InventoryMenu.jsx';
