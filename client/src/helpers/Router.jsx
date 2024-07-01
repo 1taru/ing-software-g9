@@ -21,8 +21,8 @@ export const Router = () => {
         <Route path='/createOrder' element={user ? (user.accType === 'acctype3' ? (<CreateOrder />) : (<Inicio />)) : (<Login />)} />
         <Route path='/addProduct' element={user ? (user.accType === 'acctype3' ? (<CreateProduct />) : (<Inicio />)) : (<Login />)} />
 
-        <Route path='/createMaterial' element={user ? (user.accType === 'acctype2' ? (<CreateMaterial />) : (<Inicio />)) : (<Login />)} />
-        <Route path='/inventario' element={user ? (user.accType === 'acctype2' ? (<InventoryMenu />) : (<Inicio />)) : (<Login />)} />
+        <Route path='/createMaterial' element={user ? (user.accType === 'acctype2'  ? (<CreateMaterial />) : (<Inicio />)) : (<Login />)} />
+        <Route path='/inventario' element={user ? (user.accType === 'acctype2' || user.accType === 'acctype3' ? (<InventoryMenu />) : (<Inicio />)) : (<Login />)} />
 
         {!user ? (<Route path='/login' element={<Login/>}/>) : (<Route path= '/login' element ={<Dashboard/>}/>)}
 

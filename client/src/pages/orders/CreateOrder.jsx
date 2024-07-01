@@ -1,3 +1,4 @@
+// CreateOrder.jsx
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
@@ -6,15 +7,15 @@ import { NewProduct } from '../../components/Buttons/NewProduct';
 import { UserContext } from '../../../context/userContext';
 
 export const CreateOrder = () => {
-  
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [quantities, setQuantities] = useState({});
   const [details, setDetails] = useState('');
+  const [name, setName] = useState('');
 
-  useEffect(() => { //obtiene los productos para enlistarlos.
+  useEffect(() => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get('http://localhost:8000/products/getProducts');
@@ -51,6 +52,7 @@ export const CreateOrder = () => {
 
     try {
       const { data: response } = await axios.post('http://localhost:8000/orders/createOrder', {
+        name,
         products: productsForOrder,
         details,
         creator: user.name,
@@ -71,11 +73,10 @@ export const CreateOrder = () => {
 
   return (
     <>
-      
       <h2 className="text-2xl font-bold mb-6 text-center text-lime-600">Crear Nuevo Pedido</h2>
       <form onSubmit={createOrder} className="max-w-lg mx-auto mt-12 flex flex-col w-96 p-6 shadow-lg bg-white dark:bg-slate-900 rounded-md">
-        <h4 className="text-sm font-bold   text-gray-100">Seleccionar los productos asociados al pedido:</h4>
         
+        <h4 className="text-sm font-bold text-gray-100">Seleccionar los productos asociados al pedido:</h4>
         {products.map((product) => (
           <div key={product._id} className="mb-4 flex items-center">
             <label className="block text-sm font-medium text-gray-900 dark:text-white mr-4">
@@ -99,6 +100,16 @@ export const CreateOrder = () => {
           </div>
         ))}
         <NewProduct />
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-900 dark:text-white">Nombre del Pedido</label>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            required
+          />
+        </div>
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-900 dark:text-white">Detalles</label>
           <textarea

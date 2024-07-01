@@ -14,6 +14,7 @@ export const InventoryMenu = () => {
   const [priceInputValue, setPriceInputValue] = useState("");
   const [bodegaInputValue, setBodegaInputValue] = useState("");
   const [formType, setFormType] = useState(null);
+  const [expandedMaterialId, setExpandedMaterialId] = useState(null);
 
   const handleUpdateQuantity = (material) => {
     setSelectedMaterial(material);
@@ -25,9 +26,9 @@ export const InventoryMenu = () => {
     setFormType("properties");
   };
 
-  const handleSaveProperties = () => {
+  const handleSaveProperties = async () => {
     try {
-      axios.put(
+      await axios.put(
         `http://localhost:8000/inventory/updateProperties/${selectedMaterial._id}`,
         { name: nameInputValue, price: priceInputValue, location: bodegaInputValue }
       );
@@ -35,6 +36,7 @@ export const InventoryMenu = () => {
       setPriceInputValue("");
       setBodegaInputValue("");
       setSelectedMaterial(null);
+      fetchMaterials();
     } catch (error) {
       console.error(error);
     }
@@ -48,24 +50,25 @@ export const InventoryMenu = () => {
       );
       setInputValue("");
       setSelectedMaterial(null);
+      fetchMaterials();
     } catch (error) {
       console.error(error);
     }
   };
 
-  useEffect(() => {
-    const fetchMaterials = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:8000/inventory/getMaterials"
-        );
-        console.log(response);
-        setMaterials(response.data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
+  const fetchMaterials = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:8000/inventory/getMaterials"
+      );
+      console.log(response);
+      setMaterials(response.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
+  useEffect(() => {
     fetchMaterials();
   }, []);
 
@@ -76,6 +79,10 @@ export const InventoryMenu = () => {
     } catch (err) {
       console.error(err);
     }
+  };
+
+  const toggleDetails = (materialId) => {
+    setExpandedMaterialId(materialId === expandedMaterialId ? null : materialId);
   };
 
   return (
@@ -95,29 +102,36 @@ export const InventoryMenu = () => {
             <div className="flex items-center gap-x-4 flex-grow">
               <div className="min-w-0 flex-auto">
                 <p className="text-sm font-semibold leading-6 text-gray-900 dark:text-gray-400">
-                  Material ID: {material._id}
+                  {material.name}
                 </p>
-                <p className="mt-1 truncate text-xs leading-5 text-gray-500">
-                  Nombre: {material.name}
-                </p>
-                <p className="mt-1 truncate text-xs leading-5 text-gray-500">
-                  Precio: {material.price}
-                </p>
-                <p className="mt-1 truncate text-xs leading-5 text-gray-500">
-                  Cantidad: {material.quantity}
-                </p>
-                <p className="mt-1 truncate text-xs leading-5 text-gray-500">
-                  Ubicación: {material.location}
-                </p>
-                <p className="mt-1 truncate text-xs leading-5 text-gray-500">
-                  Fecha de Actualización:{" "}
-                  {new Date(material.lastupdated).toLocaleString()}
-                </p>
+                {expandedMaterialId === material._id && (
+                  <>
+                    <p className="mt-1 truncate text-xs leading-5 text-gray-500">
+                      Precio: {material.price}
+                    </p>
+                    <p className="mt-1 truncate text-xs leading-5 text-gray-500">
+                      Cantidad: {material.quantity}
+                    </p>
+                    <p className="mt-1 truncate text-xs leading-5 text-gray-500">
+                      Ubicación: {material.location}
+                    </p>
+                    <p className="mt-1 truncate text-xs leading-5 text-gray-500">
+                      Fecha de Actualización:{" "}
+                      {new Date(material.lastupdated).toLocaleString()}
+                    </p>
+                  </>
+                )}
+                <button
+                  onClick={() => toggleDetails(material._id)}
+                  className="mt-2 bg-lime-900 hover:bg-lime-700 text-white dark:text-gray-200 font-bold py-1 px-2 rounded text-xs"
+                >
+                  {expandedMaterialId === material._id ? "Ocultar detalles" : "Ver detalles"}
+                </button>
               </div>
             </div>
             <div className="flex-shrink-0 flex flex-col items-end">
               <Menu>
-                <MenuButton className="inline-flex justify-center items-center w-10 h-8 rounded-md border border-gray-300 dark:border-sky-900 shadow-sm bg-lime-600 text-sm font-medium text-gray-700 hover:bg-lime-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 dark:focus:ring-offset-gray-800 focus:ring-indigo-500">
+                <MenuButton className="inline-flex justify-center items-center w-10 h-8 rounded-md border border-gray-300 dark:border-sky-900 shadow-sm bg-lime-600 hover:bg-lime-700 text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 dark:focus:ring-offset-gray-800 focus:ring-indigo-500">
                   <FiMoreVertical className="text-white" />
                 </MenuButton>
                 <MenuList className="z-10 origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white dark:bg-sky-900 ring-1 ring-black ring-opacity-5 focus:outline-none">

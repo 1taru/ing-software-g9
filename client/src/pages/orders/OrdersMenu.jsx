@@ -5,16 +5,18 @@ import { Menu, MenuItem, MenuButton, MenuList } from '@reach/menu-button';
 import '@reach/menu-button/styles.css';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../../../context/userContext';
+import SubjectsButton from '../../components/Buttons/inventoryDir';
 
 export const OrdersMenu = () => {
     const [orders, setOrders] = useState([]);
-    const {user} = useContext(UserContext)
+    const [expandedOrderId, setExpandedOrderId] = useState(null);
+    const { user } = useContext(UserContext);
 
     useEffect(() => {
         const fetchOrders = async () => {
             try {
                 const response = await axios.get('http://localhost:8000/orders/getOrders');
-                console.log(response)
+                console.log(response);
                 setOrders(response.data);
             } catch (err) {
                 console.error(err);
@@ -33,6 +35,10 @@ export const OrdersMenu = () => {
         }
     };
 
+    const toggleDetails = (orderId) => {
+        setExpandedOrderId(expandedOrderId === orderId ? null : orderId);
+    };
+
     return (
         <div className="p-6 bg-gray-100 dark:bg-slate-800 min-h-screen">
             <h2 className="text-2xl font-bold mb-6 text-center text-lime-600">Lista de Pedidos</h2>
@@ -41,18 +47,28 @@ export const OrdersMenu = () => {
                     <li key={order._id} className="flex justify-between items-center gap-x-6 py-5 px-4">
                         <div className="flex items-center gap-x-4 flex-grow">
                             <div className="min-w-0 flex-auto">
-                                <p className="text-sm font-semibold leading-6 text-gray-900 dark:text-gray-400">Pedido ID: {order._id}</p>
-                                <p className="mt-1 truncate text-xs leading-5 text-gray-500">Creado por: {order.creator}</p>
-                                <p className="mt-1 truncate text-xs leading-5 text-gray-500">Estado: {order.status}</p>
-                                <p className="mt-1 truncate text-xs leading-5 text-gray-500">Fecha de Creación: {order.creationDate}</p>
-                                <p className="mt-1 truncate text-xs leading-5 text-gray-500">Detalles: {order.details}</p>
-                                <div className="mt-1">
-                                    {order.products.map(product => (
-                                        <div key={product?.product?._id} className="text-xs leading-5 text-gray-500">
-                                            {product.product.name} - Cantidad: {product.quantity}
+                                <p className="text-sm font-semibold leading-6 text-gray-900 dark:text-gray-400">{order.name}</p>
+                                {expandedOrderId === order._id && (
+                                    <>
+                                        <p className="mt-1 truncate text-xs leading-5 text-gray-500">Creado por: {order.creator}</p>
+                                        <p className="mt-1 truncate text-xs leading-5 text-gray-500">Estado: {order.status}</p>
+                                        <p className="mt-1 truncate text-xs leading-5 text-gray-500">Fecha de Creación: {order.creationDate}</p>
+                                        <p className="mt-1 truncate text-xs leading-5 text-gray-500">Detalles: {order.details}</p>
+                                        <div className="mt-1">
+                                            {order.products.map(product => (
+                                                <div key={product?.product?._id} className="text-xs leading-5 text-gray-500">
+                                                    {product.product.name} - Cantidad: {product.quantity}
+                                                </div>
+                                            ))}
                                         </div>
-                                    ))}
-                                </div>
+                                    </>
+                                )}
+                                <button
+                                    onClick={() => toggleDetails(order._id)}
+                                    className="mt-2 bg-lime-900 hover:bg-lime-700 text-white dark:text-gray-200 font-bold py-1 px-2 rounded text-xs"
+                                >
+                                    {expandedOrderId === order._id ? "Ocultar detalles" : "Ver detalles"}
+                                </button>
                             </div>
                         </div>
                         <div className="flex-shrink-0 flex flex-col items-end">
@@ -69,11 +85,14 @@ export const OrdersMenu = () => {
                 ))}
             </ul>
             <div className="flex justify-center mt-6">
-                {user.accType=='acctype3' && <Link to="/createOrder" className="m-2">
-                    <button className="bg-lime-900 dark:bg-gray-900 hover:bg-lime-700 text-white dark:text-gray-200 font-bold py-2 px-4 rounded">
-                        Crear nuevo pedido
-                    </button>
-                </Link>}
+                {user.accType === 'acctype3' && (
+                    <Link to="/createOrder" className="m-2">
+                        <button className="bg-lime-900 dark:bg-gray-900 hover:bg-lime-700 text-white dark:text-gray-200 font-bold py-2 px-4 rounded">
+                            Crear nuevo pedido
+                        </button>
+                    </Link>
+                )}
+                <SubjectsButton />
                 <Link to="/" className="m-2">
                     <button className="bg-lime-900 dark:bg-gray-900 hover:bg-lime-700 text-white dark:text-gray-200 font-bold py-2 px-4 rounded">
                         Volver al Inicio
@@ -81,5 +100,5 @@ export const OrdersMenu = () => {
                 </Link>
             </div>
         </div>
-    )
-}
+    );
+};

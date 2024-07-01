@@ -1,3 +1,4 @@
+// server/controllers/orderController.js
 const Order = require('../models/order');
 
 const getAllOrders = async (req, res) => {
@@ -11,13 +12,14 @@ const getAllOrders = async (req, res) => {
 };
 
 const createOrder = async (req, res) => {
-  const { products, creationDate, status, details, creator } = req.body;
+  const { name, products, creationDate, status, details, creator } = req.body;
   
-  if (!products || !products.length || !creationDate || !status || !details || !creator) {
+  if (!name || !products || !products.length || !creationDate || !status || !details || !creator) {
     return res.json({ error: 'Existen campos vacíos.' });
   }
 
   const order = new Order({
+    name,
     products,
     creationDate,
     status,
