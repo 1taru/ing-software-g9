@@ -3,6 +3,7 @@ import axios from 'axios';
 import { FiMoreVertical } from 'react-icons/fi';
 import { Menu, MenuItem, MenuButton, MenuList } from '@reach/menu-button';
 import '@reach/menu-button/styles.css';
+import { toast } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../../../context/userContext';
 import SubjectsButton from '../../components/Buttons/inventoryDir';
@@ -58,8 +59,15 @@ export const OrdersMenu = () => {
             );
             setOrders(updatedOrders);
             setEditOrderId(null);
+            toast.success("Orden actualizada con éxito");
         } catch (err) {
             console.error(err);
+            if(!newStatus || !newDetails){
+                toast.error("Existen campos vacíos.")
+            }
+            else{
+                toast.error("Error al actualizar la orden");
+            }
         }
     };
 

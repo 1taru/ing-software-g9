@@ -49,9 +49,8 @@ const deleteOrder = async (req, res) => {
 
 const updateOrder = async (req, res) => {
   const { status, details } = req.body;
-
-  if (!status || !details) {
-    return res.json({ error: 'Existen campos vacíos.' });
+  if (!status || !details ) {
+    return res.status(400).json({ error: 'Existen campos vacíos.' });
   }
 
   try {
