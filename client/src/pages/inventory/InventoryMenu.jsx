@@ -102,7 +102,7 @@ export const InventoryMenu = () => {
             <div className="flex items-center gap-x-4 flex-grow">
               <div className="min-w-0 flex-auto">
                 <p className="text-sm font-semibold leading-6 text-gray-900 dark:text-gray-400">
-                  {material.name}
+                  {material.name + '   -  cantidad: ' + material.quantity}
                 </p>
                 {expandedMaterialId === material._id && (
                   <>
