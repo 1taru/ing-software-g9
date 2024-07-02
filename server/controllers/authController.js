@@ -8,7 +8,7 @@ const test = (req,res) => {
 //endpoint del registro
 const registerUser = async(req,res) => {
     try{
-        const {name,username,password, accType} = req.body;
+        const {name,username,password,accType,area} = req.body;
         // Revisar nombre
         if(!name){
             return res.json({
@@ -39,7 +39,8 @@ const registerUser = async(req,res) => {
             name, 
             username, 
             password: hashedPassword,
-            accType
+            accType,
+            area // NUevo atributo Area 
         });
 
         return res.json(user);
@@ -57,7 +58,7 @@ const loginUser = async (req, res) => {
 
     const match = await comparePassword(password, user.password);
     if (match) {
-      jwt.sign({ username: user.username, id: user._id, name: user.name, accType: user.accType }, process.env.JWT_SECRET, {}, (error, token) => {
+      jwt.sign({ username: user.username, id: user._id, name: user.name, accType: user.accType, area: user.area }, process.env.JWT_SECRET, {}, (error, token) => {
         if (error) throw error;
         res.cookie('token', token).json(user);
       });

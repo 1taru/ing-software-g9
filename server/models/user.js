@@ -9,9 +9,12 @@ const userSchema = new Schema({
         unique: true
     },
     accType: String,
-    password: String
+    password: String,
+    area: String  // Nuevo atributo "Area"
 })
 
 const UserModel = mongoose.model('User', userSchema)
 
 module.exports = UserModel
+
+
