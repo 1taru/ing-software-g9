@@ -116,6 +116,12 @@ export const InventoryMenu = () => {
                       Ubicación: {material.location}
                     </p>
                     <p className="mt-1 truncate text-xs leading-5 text-gray-500">
+                      Espesor:{material.height}, Anchura:{material.width}, Largo:{material.length}
+                    </p>
+                    <p className="mt-1 truncate text-xs leading-5 text-gray-500">
+                      Tipo de puerta: {material.doorType}, Categoria: {material.category}, Material: Categoria: {material.materialType}
+                    </p>
+                    <p className="mt-1 truncate text-xs leading-5 text-gray-500">
                       Fecha de Actualización:{" "}
                       {new Date(material.lastupdated).toLocaleString()}
                     </p>

@@ -11,14 +11,20 @@ const getAllMaterials = async (req, res) => {
 };
 
 const createMaterial = async (req, res) => {
-  const { name, price, quantity, location } = req.body;
+  const { name, price, category, doorType, materialType, height, width, quantity, length, location } = req.body;
   
-  if (!name || !price || !quantity || !location) {
+  if (!name || !price || !quantity || !category || !doorType || !materialType || !height || !width || !length ) {
     return res.json({ error: 'Existen campos vacíos.' });
   }
 
   const material = new Material({
     name,
+    doorType,
+    category,
+    materialType,
+    height,
+    width,
+    length,
     price,
     quantity,
     location

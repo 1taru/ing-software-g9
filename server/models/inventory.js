@@ -12,7 +12,31 @@ const materialSchema = new Schema({
         type: String,
         required: true
     },
+    doorType: {
+        type: String,
+        required: true
+    },
+    category: {
+        type: String,
+        required: true
+    },
+    materialType: {
+        type: String,
+        required: true
+    },
     price: {
+        type:Number,
+        required: true
+    },
+    height: {
+        type:Number,
+        required: true
+    },
+    width: {
+        type:Number,
+        required: true
+    },
+    length: {
         type:Number,
         required: true
     },
@@ -26,7 +50,7 @@ const materialSchema = new Schema({
     },
     location: {
         type: String,
-        required: true
+        required: false
     }
 })
 
