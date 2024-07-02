@@ -13,5 +13,7 @@ router.use(
 router.get('/getOrders', orderController.getAllOrders);
 router.post('/createOrder', orderController.createOrder);
 router.delete('/:id',orderController.deleteOrder)
+router.put('/:id', orderController.updateOrder);
+router.get('/:id/changeLogs', orderController.getOrderChangeLogs); 
 
 module.exports = router;
