@@ -85,7 +85,8 @@ export const OrdersMenu = () => {
                                     <>
                                         <p className="mt-1 truncate text-xs leading-5 text-gray-500">Creado por: {order.creator}</p>
                                         <p className="mt-1 truncate text-xs leading-5 text-gray-500">Estado: {order.status}</p>
-                                        <p className="mt-1 truncate text-xs leading-5 text-gray-500">Fecha de Creación: {order.creationDate}</p>
+                                        <p className="mt-1 truncate text-xs leading-5 text-gray-500">Fecha de Creación: {" "}
+                                        {new Date(order.creationDate).toLocaleString()}</p>
                                         <p className="mt-1 truncate text-xs leading-5 text-gray-500">Detalles: {order.details}</p>
                                         <div className="mt-1">
                                             {order.products.map(product => (
