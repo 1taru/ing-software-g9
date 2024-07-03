@@ -75,6 +75,13 @@ const updateProperties = async (req, res) => {
     material.price = req.body.price
     material.location = req.body.location;
     material.lastupdated = new Date();
+    material.doorType = req.body.doorType;
+    material.category = req.body.category;
+    material.materialType = req.body.materialType;
+    material.height = req.body.height;
+    material.width = req.body.width;
+    material.length = req.body.length;
+    
     await material.save();
     res.json(material);
   } catch (err) {

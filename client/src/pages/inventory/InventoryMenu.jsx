@@ -16,6 +16,13 @@ export const InventoryMenu = () => {
   const [formType, setFormType] = useState(null);
   const [expandedMaterialId, setExpandedMaterialId] = useState(null);
   const [isFormVisible, setIsFormVisible] = useState(true);
+  const [materialInputValue, setMaterialInputValue] = useState("");
+  const [heightInputValue, setHeightInputValue] = useState("");
+  const [widthInputValue, setWidthInputValue] = useState("");
+  const [lengthInputValue, setLengthInputValue] = useState("");
+  const [categoryInputValue, setCategoryInputValue] = useState("");
+  const [doorTypeInputValue, setDoorTypeInputValue] = useState("");
+
 
   const handleOpenForm = () => {
     setIsFormVisible(true);
@@ -45,11 +52,24 @@ export const InventoryMenu = () => {
           name: nameInputValue,
           price: priceInputValue,
           location: bodegaInputValue,
+          doorType: doorTypeInputValue,
+          category: categoryInputValue,
+          materialType: materialInputValue,
+          height: heightInputValue,
+          width: widthInputValue,
+          length: lengthInputValue
         }
       );
       setNameInputValue("");
       setPriceInputValue("");
       setBodegaInputValue("");
+      setMaterialInputValue("");
+      setHeightInputValue("");
+      setWidthInputValue("");
+      setLengthInputValue("");
+      setCategoryInputValue("");
+      setDoorTypeInputValue("");
+
       setSelectedMaterial(null);
       fetchMaterials();
     } catch (error) {
@@ -133,13 +153,12 @@ export const InventoryMenu = () => {
                       Ubicación: {material.location}
                     </p>
                     <p className="mt-1 truncate text-xs leading-5 text-gray-500">
-                      Espesor:{material.height}, Anchura:{material.width},
-                      Largo:{material.length}
+                      Espesor:{material.height}mm, Anchura:{material.width}mm,
+                      Largo:{material.length}mm
                     </p>
                     <p className="mt-1 truncate text-xs leading-5 text-gray-500">
                       Tipo de puerta: {material.doorType}, Categoria:{" "}
-                      {material.category}, Material: Categoria:{" "}
-                      {material.materialType}
+                      {material.category}, Material: {material.materialType}
                     </p>
                     <p className="mt-1 truncate text-xs leading-5 text-gray-500">
                       Fecha de Actualización:{" "}
@@ -183,94 +202,183 @@ export const InventoryMenu = () => {
                   </MenuItem>
                 </MenuList>
               </Menu>
-              {isFormVisible && selectedMaterial === material && formType === "quantity" && (
-                <div className="mt-2 p-2 bg-gray-200 dark:bg-gray-700 rounded-lg w-full md:w-64">
-                  <label className="block text-xs font-medium text-gray-900 dark:text-gray-400 mb-1">
-                    Cantidad
-                  </label>
-                  <input
-                    className="mb-2 p-2 text-xs w-full bg-gray-800 text-white border border-gray-300 dark:border-gray-600 rounded"
-                    type="number"
-                    value={inputValue}
-                    onChange={(e) => {
-                      const value = e.target.value;
-                      const newValue = Number(value);
-                      setInputValue(
-                        value === "" ? "" : newValue >= 1 ? newValue : 1
-                      );
-                    }}
-                    placeholder="1"
-                  />
-                  <button
-                    className="bg-lime-900 hover:bg-lime-700 text-white font-bold py-1 px-2 rounded text-xs mr-2"
-                    onClick={handleSaveQuantity}
-                  >
-                    Actualizar cantidad
-                  </button>
-                  <button
-                    className="bg-red-600 hover:bg-red-500 text-white font-bold py-1 px-2 rounded text-xs"
-                    onClick={handleCloseForm}
-                  >
-                    Cancelar
-                  </button>
-                </div>
-              )}
-              {isFormVisible && selectedMaterial === material && formType === "properties" && (
-                <div className="mt-2 p-2 bg-gray-200 dark:bg-gray-700 rounded-lg w-full md:w-64">
-                <label className="block text-xs font-medium text-gray-900 dark:text-gray-400 mb-1">
-                  Nombre
-                </label>
-                  <input
-                    className="mb-2 p-2 text-xs w-full bg-gray-800 text-white border border-gray-300 dark:border-gray-600 rounded"
-                    type="text"
-                    placeholder="Clavo"
-                    value={nameInputValue}
-                    onChange={(e) => setNameInputValue(e.target.value)}
-                  />
-                  <label className="block text-xs font-medium text-gray-900 dark:text-gray-400 mb-1">
-                  Precio
-                </label>
-                  <input
-                    className="mb-2 p-2 text-xs w-full bg-gray-800 text-white border border-gray-300 dark:border-gray-600 rounded"
-                    type="text"
-                    placeholder="990"
-                    value={priceInputValue}
-                    onChange={(e) => {
-                      const value = e.target.value;
-                      const newValue = Number(value);
-                      setPriceInputValue(
-                        value === "" ? "" : newValue >= 1 ? newValue : 1
-                      );
-                    }}
-                  />
-                  <label className="block text-xs font-medium text-gray-900 dark:text-gray-400 mb-1">
-                  Ubicación
-                </label>
-                  <select
-                    value={bodegaInputValue}
-                    onChange={(e) => setBodegaInputValue(e.target.value)}
-                    className="mb-2 p-2 text-xs w-full bg-gray-800 text-white border border-gray-300 dark:border-gray-600 rounded"
-                  >
-                    <option value="">Sin ubicacion</option>
-                    <option value="Bodega 1">Bodega 1</option>
-                    <option value="Bodega 2">Bodega 2</option>
-                    <option value="Bodega 3">Bodega 3</option>
-                  </select>
-                  <button
-                    className="bg-lime-900 hover:bg-lime-700 text-white font-bold py-1 px-2 rounded text-xs mr-2"
-                    onClick={handleSaveProperties}
-                  >
-                    Actualizar propiedades
-                  </button>
+              {isFormVisible &&
+                selectedMaterial === material &&
+                formType === "quantity" && (
+                  <div className="mt-2 p-2 bg-gray-200 dark:bg-gray-700 rounded-lg w-full md:w-64">
+                    <label className="block text-xs font-medium text-gray-900 dark:text-gray-400 mb-1">
+                      Cantidad
+                    </label>
+                    <input
+                      className="mb-2 p-2 text-xs w-full bg-gray-800 text-white border border-gray-300 dark:border-gray-600 rounded"
+                      type="number"
+                      value={inputValue}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        const newValue = Number(value);
+                        setInputValue(
+                          value === "" ? "" : newValue >= 1 ? newValue : 1
+                        );
+                      }}
+                      placeholder="1"
+                    />
+                    <button
+                      className="bg-lime-900 hover:bg-lime-700 text-white font-bold py-1 px-2 rounded text-xs mr-2"
+                      onClick={handleSaveQuantity}
+                    >
+                      Actualizar cantidad
+                    </button>
+                    <button
+                      className="bg-red-600 hover:bg-red-500 text-white font-bold py-1 px-2 rounded text-xs"
+                      onClick={handleCloseForm}
+                    >
+                      Cancelar
+                    </button>
+                  </div>
+                )}
+              {isFormVisible &&
+                selectedMaterial === material &&
+                formType === "properties" && (
+                  <div className="mt-2 p-2 bg-gray-200 dark:bg-gray-700 rounded-lg w-full md:w-64">
+                    <label className="block text-xs font-medium text-gray-900 dark:text-gray-400 mb-1">
+                      Nombre
+                    </label>
+                    <input
+                      className="mb-2 p-2 text-xs w-full bg-gray-800 text-white border border-gray-300 dark:border-gray-600 rounded"
+                      type="text"
+                      placeholder="Clavo"
+                      value={nameInputValue}
+                      onChange={(e) => setNameInputValue(e.target.value)}
+                    />
+                    <label className="block text-xs font-medium text-gray-900 dark:text-gray-400 mb-1">
+                      Precio
+                    </label>
+                    <input
+                      className="mb-2 p-2 text-xs w-full bg-gray-800 text-white border border-gray-300 dark:border-gray-600 rounded"
+                      type="text"
+                      placeholder="990"
+                      value={priceInputValue}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        const newValue = Number(value);
+                        setPriceInputValue(
+                          value === "" ? "" : newValue >= 1 ? newValue : 1
+                        );
+                      }}
+                    />
+                    <label className="block text-xs font-medium text-gray-900 dark:text-gray-400 mb-1">
+                      Ubicación
+                    </label>
+                    <select
+                      value={bodegaInputValue}
+                      onChange={(e) => setBodegaInputValue(e.target.value)}
+                      className="mb-2 p-2 text-xs w-full bg-gray-800 text-white border border-gray-300 dark:border-gray-600 rounded"
+                    >
+                      <option value="">Sin ubicacion</option>
+                      <option value="Bodega 1">Bodega 1</option>
+                      <option value="Bodega 2">Bodega 2</option>
+                      <option value="Bodega 3">Bodega 3</option>
+                    </select>
+                    <label className="block text-xs font-medium text-gray-900 dark:text-gray-400 mb-1">
+                      Espesor
+                    </label>
+                    <input
+                      className="mb-2 p-2 text-xs w-full bg-gray-800 text-white border border-gray-300 dark:border-gray-600 rounded"
+                      type="text"
+                      placeholder="40"
+                      value={heightInputValue}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        const newValue = Number(value);
+                        setHeightInputValue(
+                          value === "" ? "" : newValue >= 0 ? newValue : 0
+                        );
+                      }}
+                    />
+                    <label className="block text-xs font-medium text-gray-900 dark:text-gray-400 mb-1">
+                      Anchura
+                    </label>
+                    <input
+                      className="mb-2 p-2 text-xs w-full bg-gray-800 text-white border border-gray-300 dark:border-gray-600 rounded"
+                      type="text"
+                      placeholder="30"
+                      value={widthInputValue}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        const newValue = Number(value);
+                        setWidthInputValue(
+                          value === "" ? "" : newValue >= 0 ? newValue : 0
+                        );
+                      }}
+                    />
+                    <label className="block text-xs font-medium text-gray-900 dark:text-gray-400 mb-1">
+                      Largo
+                    </label>
+                    <input
+                      className="mb-2 p-2 text-xs w-full bg-gray-800 text-white border border-gray-300 dark:border-gray-600 rounded"
+                      type="text"
+                      placeholder="2000"
+                      value={lengthInputValue}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        const newValue = Number(value);
+                        setLengthInputValue(
+                          value === "" ? "" : newValue >= 0 ? newValue : 0
+                        );
+                      }}
+                    />
+                    <label className="block text-xs font-medium text-gray-900 dark:text-gray-400 mb-1">
+                      Tipo de puerta
+                    </label>
+                    <select
+                      value={doorTypeInputValue}
+                      onChange={(e) => setDoorTypeInputValue(e.target.value)}
+                      className="mb-2 p-2 text-xs w-full bg-gray-800 text-white border border-gray-300 dark:border-gray-600 rounded"
+                    >
+                      <option value="">Seleccione</option>
+                      <option value="F60">F60</option>
+                      <option value="F30">F30</option>
+                      <option value="MDF">MDF</option>
+                      <option value="TERCIADO">TERCIADO</option>
+                    </select>
+                    <label className="block text-xs font-medium text-gray-900 dark:text-gray-400 mb-1">
+                      Categoria
+                    </label>
+                    <select
+                      value={categoryInputValue}
+                      onChange={(e) => setCategoryInputValue(e.target.value)}
+                      className="mb-2 p-2 text-xs w-full bg-gray-800 text-white border border-gray-300 dark:border-gray-600 rounded"
+                    >
+                      <option value="">Seleccione</option>
+                      <option value="Plancha">Plancha</option>
+                      <option value="Bastidor">Bastidor</option>
+                      <option value="Relleno">Relleno</option>
+                    </select>
+                    <label className="block text-xs font-medium text-gray-900 dark:text-gray-400 mb-1">
+                      Material
+                    </label>
+                    <input
+                      className="mb-2 p-2 text-xs w-full bg-gray-800 text-white border border-gray-300 dark:border-gray-600 rounded"
+                      type="text"
+                      placeholder="madera"
+                      value={materialInputValue}
+                      onChange={(e) => setMaterialInputValue(e.target.value)}
+                    />
+                    <button
+                      className="bg-lime-900 hover:bg-lime-700 text-white font-bold py-1 px-2 rounded text-xs mr-2"
+                      onClick={handleSaveProperties}
+                    >
+                      Actualizar propiedades
+                    </button>
 
-                  <button
-                    className="bg-red-600 hover:bg-red-500 text-white font-bold py-1 px-2 rounded text-xs"
-                    onClick={handleCloseForm}
-                  >
-                    Cancelar
-                  </button>
-                </div>
-              )}
+                    <button
+                      className="bg-red-600 hover:bg-red-500 text-white font-bold py-1 px-2 rounded text-xs"
+                      onClick={handleCloseForm}
+                    >
+                      Cancelar
+                    </button>
+                  </div>
+                )}
             </div>
           </li>
         ))}
