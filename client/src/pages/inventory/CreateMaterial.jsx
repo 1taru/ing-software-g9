@@ -102,7 +102,15 @@ export const CreateMaterial = () => {
           min='1'
           placeholder='Espesor de material (Milimetros)'
           value={data.height}
-          onChange={(e) => setData({ ...data, height: e.target.value })}
+          onChange={(e) => {
+            const value = e.target.value;
+            const newValue = value === '' ? '' : Number(value);
+            if (newValue === '' || newValue >= 0) {
+              setData({ ...data, height: newValue });
+            } else {
+              setData({ ...data, height: 0 });
+            }
+          }}
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         />
       </div>
@@ -113,7 +121,15 @@ export const CreateMaterial = () => {
           min='1'
           placeholder='Anchura de material (Milimetros)'
           value={data.width}
-          onChange={(e) => setData({ ...data, width: e.target.value })}
+          onChange={(e) => {
+            const value = e.target.value;
+            const newValue = value === '' ? '' : Number(value);
+            if (newValue === '' || newValue >= 0) {
+              setData({ ...data, width: newValue });
+            } else {
+              setData({ ...data, width: 0 });
+            }
+          }}
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         />
       </div>
@@ -124,7 +140,15 @@ export const CreateMaterial = () => {
           min='1'
           placeholder='Largo de material (Milimetros)'
           value={data.length}
-          onChange={(e) => setData({ ...data, length: e.target.value })}
+          onChange={(e) => {
+            const value = e.target.value;
+            const newValue = value === '' ? '' : Number(value);
+            if (newValue === '' || newValue >= 0) {
+              setData({ ...data, length: newValue });
+            } else {
+              setData({ ...data, length: 0 });
+            }
+          }}
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         />
       </div>
@@ -135,7 +159,15 @@ export const CreateMaterial = () => {
           min='1'
           placeholder='Cantidad'
           value={data.quantity}
-          onChange={(e) => setData({ ...data, quantity: e.target.value })}
+          onChange={(e) => {
+            const value = e.target.value;
+            const newValue = value === '' ? '' : Number(value);
+            if (newValue === '' || newValue >= 0) {
+              setData({ ...data, quantity: newValue });
+            } else {
+              setData({ ...data, quantity: 0 });
+            }
+          }}
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         />
       </div>
@@ -146,7 +178,15 @@ export const CreateMaterial = () => {
           min='1'
           placeholder='Precio de producto'
           value={data.price}
-          onChange={(e) => setData({ ...data, price: e.target.value })}
+          onChange={(e) => {
+            const value = e.target.value;
+            const newValue = value === '' ? '' : Number(value);
+            if (newValue === '' || newValue >= 0) {
+              setData({ ...data, price: newValue });
+            } else {
+              setData({ ...data, price: 0 });
+            }
+          }}
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         />
       </div>

@@ -15,13 +15,24 @@ export const InventoryMenu = () => {
   const [bodegaInputValue, setBodegaInputValue] = useState("");
   const [formType, setFormType] = useState(null);
   const [expandedMaterialId, setExpandedMaterialId] = useState(null);
+  const [isFormVisible, setIsFormVisible] = useState(true);
+
+  const handleOpenForm = () => {
+    setIsFormVisible(true);
+  };
+
+  const handleCloseForm = () => {
+    setIsFormVisible(false);
+  };
 
   const handleUpdateQuantity = (material) => {
+    handleOpenForm();
     setSelectedMaterial(material);
     setFormType("quantity");
   };
 
   const handleUpdateProperties = (material) => {
+    handleOpenForm();
     setSelectedMaterial(material);
     setFormType("properties");
   };
@@ -30,7 +41,11 @@ export const InventoryMenu = () => {
     try {
       await axios.put(
         `http://localhost:8000/inventory/updateProperties/${selectedMaterial._id}`,
-        { name: nameInputValue, price: priceInputValue, location: bodegaInputValue }
+        {
+          name: nameInputValue,
+          price: priceInputValue,
+          location: bodegaInputValue,
+        }
       );
       setNameInputValue("");
       setPriceInputValue("");
@@ -82,7 +97,9 @@ export const InventoryMenu = () => {
   };
 
   const toggleDetails = (materialId) => {
-    setExpandedMaterialId(materialId === expandedMaterialId ? null : materialId);
+    setExpandedMaterialId(
+      materialId === expandedMaterialId ? null : materialId
+    );
   };
 
   return (
@@ -102,7 +119,7 @@ export const InventoryMenu = () => {
             <div className="flex items-center gap-x-4 flex-grow">
               <div className="min-w-0 flex-auto">
                 <p className="text-sm font-semibold leading-6 text-gray-900 dark:text-gray-400">
-                  {material.name + '   -  cantidad: ' + material.quantity}
+                  {material.name + "   -  cantidad: " + material.quantity}
                 </p>
                 {expandedMaterialId === material._id && (
                   <>
@@ -116,10 +133,13 @@ export const InventoryMenu = () => {
                       Ubicación: {material.location}
                     </p>
                     <p className="mt-1 truncate text-xs leading-5 text-gray-500">
-                      Espesor:{material.height}, Anchura:{material.width}, Largo:{material.length}
+                      Espesor:{material.height}, Anchura:{material.width},
+                      Largo:{material.length}
                     </p>
                     <p className="mt-1 truncate text-xs leading-5 text-gray-500">
-                      Tipo de puerta: {material.doorType}, Categoria: {material.category}, Material: Categoria: {material.materialType}
+                      Tipo de puerta: {material.doorType}, Categoria:{" "}
+                      {material.category}, Material: Categoria:{" "}
+                      {material.materialType}
                     </p>
                     <p className="mt-1 truncate text-xs leading-5 text-gray-500">
                       Fecha de Actualización:{" "}
@@ -131,7 +151,9 @@ export const InventoryMenu = () => {
                   onClick={() => toggleDetails(material._id)}
                   className="mt-2 bg-lime-900 hover:bg-lime-700 text-white dark:text-gray-200 font-bold py-1 px-2 rounded text-xs"
                 >
-                  {expandedMaterialId === material._id ? "Ocultar detalles" : "Ver detalles"}
+                  {expandedMaterialId === material._id
+                    ? "Ocultar detalles"
+                    : "Ver detalles"}
                 </button>
               </div>
             </div>
@@ -161,42 +183,92 @@ export const InventoryMenu = () => {
                   </MenuItem>
                 </MenuList>
               </Menu>
-              {selectedMaterial === material && formType === "quantity" && (
-                <div className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+              {isFormVisible && selectedMaterial === material && formType === "quantity" && (
+                <div className="mt-2 p-2 bg-gray-200 dark:bg-gray-700 rounded-lg w-full md:w-64">
+                  <label className="block text-xs font-medium text-gray-900 dark:text-gray-400 mb-1">
+                    Cantidad
+                  </label>
                   <input
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="mb-2 p-2 text-xs w-full bg-gray-800 text-white border border-gray-300 dark:border-gray-600 rounded"
                     type="number"
                     value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
-                    placeholder="Cantidad"
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      const newValue = Number(value);
+                      setInputValue(
+                        value === "" ? "" : newValue >= 1 ? newValue : 1
+                      );
+                    }}
+                    placeholder="1"
                   />
-                  <button className="bg-lime-900 hover:bg-lime-700 text-white dark:text-gray-200 font-bold py-2 px-4 rounded" onClick={handleSaveQuantity}>Actualizar cantidad</button>
+                  <button
+                    className="bg-lime-900 hover:bg-lime-700 text-white font-bold py-1 px-2 rounded text-xs mr-2"
+                    onClick={handleSaveQuantity}
+                  >
+                    Actualizar cantidad
+                  </button>
+                  <button
+                    className="bg-red-600 hover:bg-red-500 text-white font-bold py-1 px-2 rounded text-xs"
+                    onClick={handleCloseForm}
+                  >
+                    Cancelar
+                  </button>
                 </div>
               )}
-              {selectedMaterial === material && formType === "properties" && (
-                <div className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+              {isFormVisible && selectedMaterial === material && formType === "properties" && (
+                <div className="mt-2 p-2 bg-gray-200 dark:bg-gray-700 rounded-lg w-full md:w-64">
+                <label className="block text-xs font-medium text-gray-900 dark:text-gray-400 mb-1">
+                  Nombre
+                </label>
                   <input
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="mb-2 p-2 text-xs w-full bg-gray-800 text-white border border-gray-300 dark:border-gray-600 rounded"
                     type="text"
-                    placeholder="Nombre"
+                    placeholder="Clavo"
                     value={nameInputValue}
                     onChange={(e) => setNameInputValue(e.target.value)}
                   />
+                  <label className="block text-xs font-medium text-gray-900 dark:text-gray-400 mb-1">
+                  Precio
+                </label>
                   <input
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="mb-2 p-2 text-xs w-full bg-gray-800 text-white border border-gray-300 dark:border-gray-600 rounded"
                     type="text"
-                    placeholder="Precio"
+                    placeholder="990"
                     value={priceInputValue}
-                    onChange={(e) => setPriceInputValue(e.target.value)}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      const newValue = Number(value);
+                      setPriceInputValue(
+                        value === "" ? "" : newValue >= 1 ? newValue : 1
+                      );
+                    }}
                   />
-                  <input
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    type="text"
+                  <label className="block text-xs font-medium text-gray-900 dark:text-gray-400 mb-1">
+                  Ubicación
+                </label>
+                  <select
                     value={bodegaInputValue}
                     onChange={(e) => setBodegaInputValue(e.target.value)}
-                    placeholder="Ubicación"
-                  />
-                  <button className="bg-lime-900 hover:bg-lime-700 text-white dark:text-gray-200 font-bold py-2 px-4 rounded" onClick={handleSaveProperties}>Actualizar propiedades</button>
+                    className="mb-2 p-2 text-xs w-full bg-gray-800 text-white border border-gray-300 dark:border-gray-600 rounded"
+                  >
+                    <option value="">Sin ubicacion</option>
+                    <option value="Bodega 1">Bodega 1</option>
+                    <option value="Bodega 2">Bodega 2</option>
+                    <option value="Bodega 3">Bodega 3</option>
+                  </select>
+                  <button
+                    className="bg-lime-900 hover:bg-lime-700 text-white font-bold py-1 px-2 rounded text-xs mr-2"
+                    onClick={handleSaveProperties}
+                  >
+                    Actualizar propiedades
+                  </button>
+
+                  <button
+                    className="bg-red-600 hover:bg-red-500 text-white font-bold py-1 px-2 rounded text-xs"
+                    onClick={handleCloseForm}
+                  >
+                    Cancelar
+                  </button>
                 </div>
               )}
             </div>

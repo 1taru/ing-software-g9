@@ -101,7 +101,11 @@ export const UmbralMenu = () => {
                     type="text"
                     placeholder="Nuevo Estado"
                     value={newUmbral}
-                    onChange={(e) => setNewUmbral(e.target.value)}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      const newValue = Number(value);
+                      setNewUmbral(value === '' ? '' : (newValue >= 0 ? newValue : 0));
+                    }}
                     className="mb-2 p-2 text-xs w-full bg-gray-800 text-white border border-gray-300 dark:border-gray-600 rounded"
                   />
                   <div className="flex justify-between">
