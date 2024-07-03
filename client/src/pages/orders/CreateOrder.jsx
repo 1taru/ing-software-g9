@@ -57,7 +57,7 @@ export const CreateOrder = () => {
         details,
         creator: user.name,
         creationDate: new Date().toISOString(),
-        status: 'Dimensionado'
+        status: 'area1'
       });
       if (response.error) {
         toast.error(response.error);
