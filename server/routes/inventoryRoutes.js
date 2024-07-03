@@ -15,5 +15,6 @@ router.post('/createMaterial', materialController.createMaterial);
 router.delete('/:id',materialController.deleteMaterial);
 router.put('/updateQuantity/:id', materialController.updateQuantity);
 router.put('/updateProperties/:id', materialController.updateProperties);
+router.put('/updateUmbral/:id', materialController.updateUmbral);
 
 module.exports = router;

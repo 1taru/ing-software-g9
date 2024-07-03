@@ -1,7 +1,7 @@
 
 import React, { useContext } from 'react'
 import {Route, Routes, Navigate} from 'react-router-dom'
-import { Dashboard, Inicio, Login, Register, Logout, OrdersMenu, AllUsers, CreateOrder, CreateProduct, CreateMaterial, InventoryMenu } from '../pages'
+import { Dashboard, Inicio, Login, Register, Logout, OrdersMenu, AllUsers, CreateOrder, CreateProduct, CreateMaterial, InventoryMenu, UmbralMenu } from '../pages'
 import { UserContext } from '../../context/userContext'
 import { OrderChangeLogs } from '../pages/orders/OrderUpdates'
 
@@ -26,6 +26,7 @@ export const Router = () => {
 
         <Route path='/createMaterial' element={user ? (user.accType === 'acctype2'  ? (<CreateMaterial />) : (<Inicio />)) : (<Login />)} />
         <Route path='/inventario' element={user ? (user.accType === 'acctype2' || user.accType === 'acctype3' ? (<InventoryMenu />) : (<Inicio />)) : (<Login />)} />
+        <Route path='/umbral' element={user ? (user.accType === 'acctype2' ? (<UmbralMenu />) : (<Inicio />)) : (<Login />)} />
         
         {!user ? (<Route path='/login' element={<Login/>}/>) : (<Route path= '/login' element ={<Dashboard/>}/>)}
 

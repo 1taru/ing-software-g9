@@ -82,10 +82,26 @@ const updateProperties = async (req, res) => {
   }
 }
 
+const updateUmbral = async (req, res) => {
+  try {
+    const material = await Material.findById(req.params.id);
+    if (!material) {
+      return res.status(404).json({ message: 'Material no encontrado' });
+    }
+    material.umbral = req.body.umbral;
+    material.lastupdated = new Date();
+    await material.save();
+    res.json(material);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 module.exports = {
   getAllMaterials,
   createMaterial,
   deleteMaterial,
   updateQuantity,
-  updateProperties
+  updateProperties,
+  updateUmbral
 };

@@ -51,6 +51,10 @@ const materialSchema = new Schema({
     location: {
         type: String,
         required: false
+    },
+    umbral: {
+        type: Number,
+        default: 0
     }
 })
 

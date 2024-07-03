@@ -9,3 +9,4 @@
     export {CreateProduct} from './products/CreateProduct.jsx';
     export {CreateMaterial} from './inventory/CreateMaterial.jsx';
     export {InventoryMenu} from './inventory/InventoryMenu.jsx';
+    export {UmbralMenu} from './inventory/UmbralMenu.jsx';
