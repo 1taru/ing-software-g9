@@ -10,3 +10,6 @@
     export {CreateMaterial} from './inventory/CreateMaterial.jsx';
     export {InventoryMenu} from './inventory/InventoryMenu.jsx';
     export {UmbralMenu} from './inventory/UmbralMenu.jsx';
+    export { OrderMenuOperario } from './orders/OrderMenuOperario.jsx';
+    export { OrderMenuModificar } from './orders/OrderMenuModificar.jsx';
+    
